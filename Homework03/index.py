@@ -1,6 +1,7 @@
 import simplegui
 
 mlsec = user = pc = 0
+run = True
 
 
 def create_timer():
@@ -24,19 +25,30 @@ def result(user, pc):
     return str(user) + '/' + str(pc)
 
 
+def start():
+    global run
+    run = True
+    timer.start()
+
+
 def reset():
     global mlsec, user, pc
     mlsec = user = pc = 0
 
 
 def stop():
+    global run
     timer.stop()
-    stp = format(mlsec)
-    if stp[-1] == '0':
-        global user, pc
-        user += 1
+    if run == False:
+        return None
     else:
-        pc += 1
+        stp = format(mlsec)
+        if stp[-1] == '0':
+            global user, pc
+            user += 1
+        else:
+            pc += 1
+    run = False
 
 
 # Handler to draw on canvas
@@ -45,12 +57,12 @@ def draw(canvas):
     canvas.draw_text(result(user, pc), [150, 40], 28, "Red")
 
 # Create a frame and assign callbacks to event handlers
-frame = simplegui.create_frame("Home", 300, 200)
+frame = simplegui.create_frame("Stopwatch", 300, 200)
 frame.set_canvas_background('Silver')
 
 timer = simplegui.create_timer(100, create_timer)
 
-frame.add_button("Start", timer.start)
+frame.add_button("Start", start)
 frame.add_button("Stop", stop)
 frame.add_button("Reset", reset)
 
