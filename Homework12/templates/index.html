@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <form action="{{ url_for('base_form') }}" method="post">
+        <p>
+            <input type="text" name="zip" value="{{zip}}" placeholder="zip code">
+        </p>
+        <p>
+            <input type="submit" value="save">
+        </p>
+    </form>
+
+    <div>
+        <a href="{{ url_for('result') }}">go to result page!</a>
+    </div>
+
+</body>
+</html>
